@@ -1,0 +1,15 @@
+<div class="relative min-h-screen bg-dark-bg">
+  <app-header (sectionNavigate)="onSectionNavigate($event)"></app-header>
+
+  <main class="container mx-auto px-6 md:px-10 lg:px-20 py-24 md:py-32">
+    <app-home id="home"></app-home>
+    <app-about id="about"></app-about>
+    <app-skills id="skills"></app-skills>
+    <app-experience id="experience"></app-experience>
+    <app-projects id="projects"></app-projects>
+    <app-contact id="contact"></app-contact>
+  </main>
+
+  <app-footer></app-footer>
+  <app-toaster></app-toaster>
+</div>

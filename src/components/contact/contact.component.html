@@ -1,0 +1,66 @@
+<section class="py-20 border-t border-gray-800">
+  <h2 appAnimateOnScroll class="text-4xl font-bold text-center text-dark-text mb-12">Get In Touch</h2>
+  <div class="grid md:grid-cols-2 gap-12">
+    <div appAnimateOnScroll>
+      <h3 class="text-2xl font-semibold text-primary mb-4">Contact Information</h3>
+      <p class="text-dark-text-secondary mb-6 leading-relaxed">
+        I'm currently open to new opportunities and collaborations. Feel free to reach out via email, connect with me on LinkedIn, or use the contact form. I'll get back to you as soon as possible.
+      </p>
+      <div class="space-y-4">
+        <div class="flex items-center gap-4">
+          <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          <a href="mailto:vamankumar456@gmail.com" class="text-dark-text hover:text-primary transition-colors">vamankumar456@gmail.com</a>
+        </div>
+        <div class="flex items-center gap-4">
+          <svg class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          <a href="#" target="_blank" class="text-dark-text hover:text-primary transition-colors">linkedin.com/in/vamanpatel</a>
+        </div>
+      </div>
+    </div>
+    
+    <form appAnimateOnScroll animationDelayClass="delay-200" [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <div>
+        <label for="name" class="block text-sm font-medium text-dark-text-secondary">Name</label>
+        <input type="text" id="name" formControlName="name" class="mt-1 block w-full bg-dark-card border border-gray-600 rounded-md shadow-sm py-2 px-3 text-dark-text focus:outline-none focus:ring-primary focus:border-primary">
+        @if (name?.invalid && (name?.dirty || name?.touched)) {
+          <p class="mt-1 text-sm text-red-500">Name is required.</p>
+        }
+      </div>
+       <div>
+        <label for="email" class="block text-sm font-medium text-dark-text-secondary">Email</label>
+        <input type="email" id="email" formControlName="email" class="mt-1 block w-full bg-dark-card border border-gray-600 rounded-md shadow-sm py-2 px-3 text-dark-text focus:outline-none focus:ring-primary focus:border-primary">
+        @if (email?.invalid && (email?.dirty || email?.touched)) {
+          <div class="mt-1 text-sm text-red-500">
+            @if (email?.errors?.['required']) { <p>Email is required.</p> }
+            @if (email?.errors?.['email']) { <p>Please enter a valid email address.</p> }
+          </div>
+        }
+      </div>
+       <div>
+        <label for="message" class="block text-sm font-medium text-dark-text-secondary">Message</label>
+        <textarea id="message" formControlName="message" rows="4" class="mt-1 block w-full bg-dark-card border border-gray-600 rounded-md shadow-sm py-2 px-3 text-dark-text focus:outline-none focus:ring-primary focus:border-primary"></textarea>
+        @if (message?.invalid && (message?.dirty || message?.touched)) {
+          <div class="mt-1 text-sm text-red-500">
+             @if (message?.errors?.['required']) { <p>Message is required.</p> }
+             @if (message?.errors?.['minlength']) { <p>Message must be at least 10 characters long.</p> }
+          </div>
+        }
+      </div>
+      <div>
+        <button type="submit" [disabled]="submissionStatus() === 'submitting'" class="w-full bg-primary hover:bg-primary-focus text-white font-bold py-3 px-4 rounded-md transition duration-300 disabled:bg-gray-500 disabled:cursor-not-allowed">
+          @if (submissionStatus() === 'submitting') {
+            <span>Sending...</span>
+          } @else {
+            <span>Send Message</span>
+          }
+        </button>
+      </div>
+      @if (submissionStatus() === 'success') {
+        <p class="text-green-500 text-center">Thank you! Your message has been sent.</p>
+      }
+      @if (submissionStatus() === 'error') {
+        <p class="text-red-500 text-center">Something went wrong. Please try again.</p>
+      }
+    </form>
+  </div>
+</section>

@@ -1,0 +1,36 @@
+<section class="py-20 border-t border-gray-800">
+  <h2 appAnimateOnScroll class="text-4xl font-bold text-center text-dark-text mb-16">Work Experience</h2>
+  <div class="relative">
+    <!-- Vertical line -->
+    <div class="hidden md:block absolute w-0.5 h-full bg-gray-700 left-1/2 -translate-x-1/2"></div>
+
+    @for (exp of experiences(); track exp.company; let i = $index) {
+      <div appAnimateOnScroll class="relative md:flex md:items-start mb-12">
+        <!-- Dot -->
+        <div class="hidden md:block absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-primary rounded-full mt-2"></div>
+        
+        <div class="w-full md:w-1/2 md:pr-8" [class.md:text-right]="i % 2 !== 0" [class.md:pl-8]="i % 2 === 0" [class.md:order-1]="i % 2 !== 0">
+          <p class="text-sm text-dark-text-secondary">{{ exp.duration }}</p>
+          <h3 class="text-2xl font-bold text-primary">{{ exp.company }}</h3>
+          <p class="italic text-dark-text">{{ exp.role }}</p>
+          <p class="text-sm font-semibold text-dark-text-secondary mt-1">Domain: {{ exp.domain }}</p>
+        </div>
+
+        <div class="w-full md:w-1/2 mt-4 md:mt-0" [class.md:pl-8]="i % 2 !== 0" [class.md:pr-8]="i % 2 === 0">
+          <div class="bg-dark-card p-6 rounded-lg shadow-lg">
+            <ul class="list-disc list-inside space-y-2 text-dark-text-secondary">
+              @for (desc of exp.description; track desc) {
+                <li>{{ desc }}</li>
+              }
+            </ul>
+            <div class="mt-4 flex flex-wrap gap-2">
+              @for (tech of exp.technologies; track tech) {
+                <span class="bg-gray-700 text-dark-text text-xs font-medium px-2.5 py-1 rounded-full">{{ tech }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

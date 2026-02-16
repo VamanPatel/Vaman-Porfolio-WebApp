@@ -1,0 +1,23 @@
+<section class="py-20 border-t border-gray-800">
+  <h2 appAnimateOnScroll class="text-4xl font-bold text-center text-dark-text mb-12">Services & Skills</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+    @for (category of categories; track category; let i = $index) {
+      <div appAnimateOnScroll [animationDelayClass]="'delay-' + (i * 100 + 100)" class="bg-dark-card p-6 rounded-lg shadow-lg">
+        <h3 class="text-2xl font-semibold text-primary mb-6">{{ category }}</h3>
+        <div class="space-y-5">
+          @for (skill of skillsByCategory()[category]; track skill.name) {
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-base font-medium text-dark-text">{{ skill.name }}</span>
+                <span class="text-sm font-medium text-dark-text-secondary">{{ skill.level }}%</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2.5">
+                <div class="bg-primary h-2.5 rounded-full" [style.width.%]="skill.level"></div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>

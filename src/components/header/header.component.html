@@ -1,0 +1,73 @@
+<header class="fixed top-0 left-0 right-0 z-50 bg-dark-bg/80 backdrop-blur-sm border-b border-gray-800">
+  <nav class="container mx-auto px-6 md:px-10 lg:px-20">
+    <div class="flex items-center justify-between h-20">
+      <div class="flex-shrink-0">
+        <a (click)="navigateTo('home')" class="cursor-pointer">
+          <span class="font-logo text-3xl font-light text-dark-text hover:text-primary transition-colors duration-300">Vaman</span>
+        </a>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center space-x-8">
+        @for (item of navItems; track item.id) {
+          <a (click)="navigateTo(item.id)" class="text-dark-text-secondary hover:text-primary px-3 py-2 rounded-md text-sm font-medium cursor-pointer transition-colors duration-300">
+            {{ item.label }}
+          </a>
+        }
+      </div>
+
+      <div class="hidden md:block">
+        <button (click)="scrollToContact()" class="bg-primary hover:bg-primary-focus text-white font-bold py-2 px-6 rounded-md transition duration-300 transform hover:scale-105">
+          Hire Me
+        </button>
+      </div>
+
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden flex items-center">
+        <button (click)="toggleMobileMenu()" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-dark-text-secondary hover:text-primary focus:outline-none" aria-controls="mobile-menu" [attr.aria-expanded]="isMobileMenuOpen()">
+          <span class="sr-only">Open main menu</span>
+          <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Mobile Menu - Full screen overlay -->
+<div 
+  class="fixed inset-0 z-[60] bg-dark-bg transform transition-transform duration-300 ease-in-out md:hidden"
+  [class.translate-x-0]="isMobileMenuOpen()"
+  [class.translate-x-full]="!isMobileMenuOpen()">
+  
+  <!-- Mobile menu header -->
+  <div class="flex items-center justify-between h-20 px-6 border-b border-gray-800">
+    <a (click)="navigateTo('home')" class="cursor-pointer">
+       <span class="font-logo text-3xl font-light text-dark-text hover:text-primary transition-colors duration-300">Vaman</span>
+    </a>
+    <button (click)="toggleMobileMenu()" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-dark-text-secondary hover:text-primary focus:outline-none">
+      <span class="sr-only">Close menu</span>
+      <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  
+  <!-- Mobile menu content -->
+  <div class="flex flex-col items-center justify-center h-[calc(100vh-80px)] px-6">
+    <nav class="flex flex-col items-center gap-y-8 text-center">
+      @for (item of navItems; track item.id) {
+        <a (click)="navigateTo(item.id)" class="text-dark-text-secondary hover:text-primary text-2xl font-medium cursor-pointer transition-colors duration-300">
+          {{ item.label }}
+        </a>
+      }
+      <div class="pt-8">
+        <button (click)="scrollToContact()" class="bg-primary hover:bg-primary-focus text-white font-bold py-3 px-10 rounded-md transition duration-300 transform hover:scale-105 text-lg">
+          Hire Me
+        </button>
+      </div>
+    </nav>
+  </div>
+</div>

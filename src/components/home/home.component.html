@@ -1,0 +1,85 @@
+<section class="min-h-[80vh] flex items-center py-20">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center">
+    <!-- Left Column: Text Content -->
+    <div class="flex flex-col gap-8 items-center text-center lg:items-start lg:text-left">
+      <div appAnimateOnScroll>
+        <p class="text-lg text-dark-text">Hi I am</p>
+        <h1 class="text-xl md:text-6xl font-normal md:font-bold text-dark-text-secondary md:text-dark-text tracking-tight">
+          Vaman Patel
+        </h1>
+        <h2 class="mt-2 text-4xl md:text-5xl font-bold text-primary">
+          Senior Frontend Developer
+        </h2>
+      </div>
+
+      <div appAnimateOnScroll animationDelayClass="delay-200" class="flex items-center gap-4">
+        @for(social of socials; track social.name) {
+          <a [href]="social.url" target="_blank" [attr.aria-label]="social.name"
+             class="w-10 h-10 flex items-center justify-center rounded-full bg-dark-card text-dark-text-secondary hover:text-primary hover:bg-gray-700 transition-all duration-300">
+             <i [class]="social.iconClass + ' text-xl'"></i>
+          </a>
+        }
+      </div>
+
+      <div appAnimateOnScroll animationDelayClass="delay-400" class="flex flex-wrap gap-4 justify-center lg:justify-start">
+        <button (click)="scrollToContact()" class="bg-primary hover:bg-primary-focus text-white font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105">
+          Hire Me
+        </button>
+        <button (click)="downloadResume()" 
+                [disabled]="downloadStatus() === 'downloading'"
+                class="relative bg-transparent border-2 border-dark-text-secondary hover:border-primary text-dark-text-secondary hover:text-primary font-bold py-3 px-8 rounded-md transition-all duration-300 transform hover:scale-105 disabled:cursor-not-allowed disabled:scale-100 disabled:border-gray-600 disabled:text-gray-500 w-[205px] h-[52px] flex items-center justify-center">
+          @if (downloadStatus() === 'downloading') {
+            <div class="absolute inset-0 flex items-center justify-center">
+              <svg class="animate-spin h-6 w-6 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </div>
+          } @else {
+            <span>Download Resume</span>
+          }
+        </button>
+      </div>
+
+      <div appAnimateOnScroll animationDelayClass="delay-600" class="w-full bg-dark-card/50 rounded-lg p-6 flex justify-around border border-gray-800">
+        @for(stat of stats; track stat.label; let i = $index) {
+          <div class="text-center" [class.border-r]="i < stats.length - 1" [class.border-gray-700]="i < stats.length - 1" [class.pr-4]="i === 0" [class.px-4]="i > 0 && i < stats.length -1" [class.pl-4]="i === stats.length -1">
+            <p class="text-2xl font-bold text-primary">{{ stat.value }}</p>
+            <p class="text-sm text-dark-text-secondary">{{ stat.label }}</p>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Right Column: Image -->
+    <div class="relative hidden lg:flex justify-center items-center">
+       <!-- The decorative ring -->
+       <div appAnimateOnScroll="animate-fade-in" animationDelayClass="delay-200" class="absolute w-[450px] h-[450px] rounded-full border-2 border-gray-800 animate-pulse-glow"></div>
+       
+       <!-- Image Container with Loader -->
+       <div appAnimateOnScroll="animate-fade-in" animationDelayClass="delay-400" class="relative w-[400px] h-[400px] rounded-full bg-dark-card overflow-hidden">
+          <!-- Skeleton Loader -->
+          @if (imageLoadingStatus() === 'loading') {
+            <div class="w-full h-full bg-gray-700 animate-pulse"></div>
+          }
+
+          <!-- Error Placeholder -->
+          @if (imageLoadingStatus() === 'error') {
+            <div class="w-full h-full flex items-center justify-center bg-dark-card">
+                <svg class="w-16 h-16 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            </div>
+          }
+
+          <!-- The actual image, fades in when loaded -->
+          <img [src]="profileImageUrl" 
+               (load)="onImageLoad()"
+               (error)="onImageError()"
+               alt="Vaman Patel" 
+               class="absolute inset-0 w-full h-full object-cover filter grayscale transition-opacity duration-500 ease-in-out"
+               [class.opacity-100]="imageLoadingStatus() === 'loaded'"
+               [class.opacity-0]="imageLoadingStatus() !== 'loaded'"
+          >
+       </div>
+    </div>
+  </div>
+</section>
